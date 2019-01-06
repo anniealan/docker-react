@@ -1,0 +1,14 @@
+sudo: required
+
+# we need a copy of docker running
+services:
+  - docker
+
+# commands before running tests/deploying
+before_install:
+# build image using Dockerfile.dev
+  - docker build -t annie/docker-react -f Dockerfile.dev .
+
+script: 
+# use --coverage to make sure that npm run test exists
+  - docker run annie/docker-react npm run test -- --coverage    
